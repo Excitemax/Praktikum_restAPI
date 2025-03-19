@@ -1,0 +1,119 @@
+openapi: '3.0.3'
+info:
+  title: Praktikum rest API
+  version: '1.0'
+servers:
+  - url: http://localhost:3000
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string  
+        email:
+          type: string  
+        age:
+          type: integer  
+        createdAt:
+          type: string
+        updatedAt:
+          type: string  
+
+paths:
+  /users:
+    get:
+      summary: Get all users
+      parameters: []
+      responses:
+        '200':
+          description: Get data berhasil
+          content:
+            application/json:
+              schema:  
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        
+        '500':
+          description: Server Gagal
+        
+        '403':
+          description: Tidak diizinkan
+
+  /users/(id):
+    get:  
+      description: 'endpoint untuk mendapatkan user berdasarkan id'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      
+      responses:
+        '200':
+          description: berhasil
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        
+        '500':
+          description: Terjadi kegagalan di server
+        
+        '403':
+          description: Tidak diizinkan
+    delete:
+      description: 'endpoint untuk menghapus data user berdasarkan id'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: berhasil
+        '500':
+          description: Server Gagal
+        '403':
+          description: Tidak diizinkan
+    
+    put:
+      description: 'endpoint untuk mengubah data user berdasarkan id'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+        
+        - name: name
+          in: query
+          required: true
+          schema:
+            type: string
+        
+        - name: email
+          in: query
+          required: true
+          schema:
+            type: string
+        
+        - name: age
+          in: query
+          required: true
+          schema:
+            type: integer
+      
+      responses:
+        '200':
+          description: berhasil
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+            
