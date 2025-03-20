@@ -42,8 +42,39 @@ paths:
         
         '403':
           description: Tidak diizinkan
+    
+    post:
+      summary: Create new user
+      description: 'endpoint untuk menambahkan data user baru'
+      parameters:
+        - name: name
+          in: query
+          required: true
+          schema:
+            type: string
 
-  /users/(id):
+        - name: email
+          in: query
+          required: true
+          schema:
+            type: string
+        
+        - name: age
+          in: query
+          required: true
+          schema:
+            type: integer
+
+      responses:
+        '200':
+          description: berhasil
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+            
+
+  /users/{id}:
     get:  
       description: 'endpoint untuk mendapatkan user berdasarkan id'
       parameters:
@@ -116,4 +147,5 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
-            
+      
+    
